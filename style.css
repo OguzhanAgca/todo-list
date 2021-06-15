@@ -1,0 +1,6 @@
+body, .card{
+    transition: 0.5s;
+}
+.listBG {
+    background-color: #464c54;
+}
