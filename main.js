@@ -1,8 +1,15 @@
+// Todo Enter Area
 const addBtn = document.querySelector("#addTodo");
 const input = document.querySelector("#addTodosInput");
 const cardBody = document.querySelectorAll(".card-body")[1];
 const darkModeBtn = document.querySelector("#darkMode");
 const list = document.querySelector(".list-group");
+
+// Todo Edit Area
+const closeEditTodo = document.querySelector("#closeEditTodo");
+const editArea = document.querySelector("#editArea");
+const editTodoBtn = document.querySelector("#editTodoBtn");
+const editInput = document.querySelector("#editTodo");
 
 eventListeners();
 
@@ -12,8 +19,10 @@ const restApi = new ServerSide();
 function eventListeners(){
     addBtn.addEventListener("click",addTodo);
     document.addEventListener("DOMContentLoaded",pageLoaded);
-    cardBody.addEventListener("click",deleteOneTodo);
+    cardBody.addEventListener("click",deleteOrEditTodo);
     darkModeBtn.addEventListener("click",changeMode);
+    closeEditTodo.addEventListener("click",closeEditArea);
+    editTodoBtn.addEventListener("click",editTodo);
 }
 
 function pageLoaded(){
@@ -31,17 +40,7 @@ function addTodo(e){
         input.focus();
         input.classList.add("is-invalid");
     }else{
-        let isSame = false;
-        let arr = [];
-        let todos;
-        Array.from(list.children).forEach(liElement=>{
-            todos = liElement.children[1].innerHTML.toLowerCase();
-            arr.push(todos);
-        });
-
-        isSame = arr.includes(inputValue.toLowerCase());
-        
-        if(isSame){
+        if(sameTodoControl(inputValue)){
             ui.messageCard("danger",`Please enter another Todo. You have "<b>${inputValue}</b>" on your list!`);
         }else{
             restApi.postTodo(Jsondata)
@@ -58,16 +57,62 @@ function addTodo(e){
     e.preventDefault();
 }
 
-function deleteOneTodo(e){
-    if(e.target.className == "btn btn-outline-danger btn-sm"){
-        let todoId = e.target.previousElementSibling.previousElementSibling.innerHTML;
+function sameTodoControl(inputValue){
+    let isSame = false;
+    let arr = [];
+    let todos;
+    Array.from(list.children).forEach(liElement=>{
+        todos = liElement.children[1].innerHTML.toLowerCase();
+        arr.push(todos);
+    });
 
-        ui.deleteTodoToUI(e.target.parentElement);
+    isSame = arr.includes(inputValue.toLowerCase());
+
+    return isSame;
+}
+
+var todoId;
+
+function deleteOrEditTodo(e){
+    // Get id For delete
+    todoId = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+
+    if(e.target.className == "btn btn-outline-danger btn-sm"){
+        let liElement = e.target.parentElement.parentElement;
+
+        ui.deleteTodoToUI(liElement);
         restApi.deleteTodo(todoId);
+    }else if(e.target.className == "btn btn-outline-primary btn-sm"){
+        const todoText = e.target.parentElement.previousElementSibling;
+
+        ui.openTheEditPanel(todoText);
     }
 }
 
 function changeMode(){
     const mode = darkModeBtn.children[0].className;
     ui.changeUIMode(mode);
+}
+
+function closeEditArea(){
+    editArea.classList.add("d-none");
+}
+
+function editTodo(){
+    const editInputValue = editInput.value.trim();
+
+    if(sameTodoControl(editInputValue)){
+        ui.messageCard("danger",`Please enter another Todo. You have "<b>${editInputValue}</b>" on your list!`);
+    }else{
+        restApi.putTodo(todoId,{todoName:editInputValue})
+        .then(data=>{
+            ui.updatePrevText(data);
+            ui.messageCard("success",`Todo has been successfully updated with: "<b>${data.todoName}</b>"!`);
+        })
+        .catch(err=>console.log(err));
+
+        closeEditArea();
+    }
+
+    ui.clearInput();
 }

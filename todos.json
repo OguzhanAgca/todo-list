@@ -1,12 +1,8 @@
 {
   "todos": [
     {
-      "todoName": "Go to Work!",
-      "id": 4
-    },
-    {
-      "todoName": "Go to School!",
-      "id": 5
+      "todoName": "Work out!",
+      "id": 1
     }
   ]
 }
