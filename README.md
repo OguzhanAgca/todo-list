@@ -8,11 +8,11 @@
 
 ##### ScreenShots
 
-![alt Add ToDo](https://resimyukle.org/i/kEZUd)
-![alt Delete ToDo](https://resimyukle.org/i/kEUe5)
-![alt Same ToDo](https://resimyukle.org/i/kEnCT)
-![alt DarkMode ToDo](https://resimyukle.org/i/kEXaZ)
-![alt DarkMode Add ToDo](https://resimyukle.org/i/kEeWJ)
+![Add](https://user-images.githubusercontent.com/82233025/122127428-d234cc80-ce3b-11eb-9580-b080d31c78fc.png)
+![Delete](https://user-images.githubusercontent.com/82233025/122127435-d5c85380-ce3b-11eb-98a6-085c6e946859.png)
+![Same](https://user-images.githubusercontent.com/82233025/122127438-d6f98080-ce3b-11eb-8c10-0b697a162ddc.png)
+![DarkMode](https://user-images.githubusercontent.com/82233025/122127445-d8c34400-ce3b-11eb-8487-47855e4c4e4c.png)
+![DarkModeAdd](https://user-images.githubusercontent.com/82233025/122127452-db259e00-ce3b-11eb-9492-28f1dd67941a.png)
 
 ##### Usage
 
