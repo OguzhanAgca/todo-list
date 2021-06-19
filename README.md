@@ -35,5 +35,20 @@ https://user-images.githubusercontent.com/82233025/122419773-d7a52a80-cf93-11eb-
 
 #### Usage
 
-- First install if Json-Server module is not installed on your computer.
-- After running json-server, run index.html and try it.
+##### If NodeJS and Json-Server are not installed.
+
+- Download [NodeJS](https://nodejs.org/en/download/) and install as default.
+- Open the command prompt and write: `npm install json-server -g`
+- Download my project and..
+- Get into "todo-list-main" folder with command prompt. Example;
+- If the folder is on the desktop, write to command prompt: `cd C:\Users\myPc\OneDrive\Desktop\todo-list-main`
+- After then again write to command prompt: `json-server --watch todos.json`
+- Finally, open the 'index.html' in the folder and use it.
+
+##### If NodeJS and Json-Server are installed.
+
+- Download my project and..
+- Get into "todo-list-main" folder with command prompt. Example;
+- If the folder is on the desktop, write to command prompt: `cd C:\Users\myPc\OneDrive\Desktop\todo-list-main`
+- After then again write to command prompt: `json-server --watch todos.json`
+- Finally, open the 'index.html' in the folder and use it.
