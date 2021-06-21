@@ -25,10 +25,17 @@ function eventListeners(){
     editTodoBtn.addEventListener("click",editTodo);
 }
 
+let darkMode;
 function pageLoaded(){
     restApi.getTodos()
     .then(todos=>ui.addTodosFromAPI(todos))
     .catch(err=>console.log(err));
+
+    // For Dark-Mode
+    darkMode = localStorage.getItem("darkMode");
+    if(darkMode === "enabled"){
+        ui.enableDarkMode();
+    }
 }
 
 function addTodo(e){
@@ -90,8 +97,7 @@ function deleteOrEditTodo(e){
 }
 
 function changeMode(){
-    const mode = darkModeBtn.children[0].className;
-    ui.changeUIMode(mode);
+    ui.changeUIMode();
 }
 
 function closeEditArea(){

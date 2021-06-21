@@ -7,23 +7,23 @@ class UI {
         this.editArea = document.querySelector("#editArea");
         this.editInput = document.querySelector("#editTodo");
     }
-    // Add to Page One Todo
-    addTodoToUI(data){
-        const mode = this.darkModeBtn.children[0].className;
-        if(mode == "fas fa-sun"){
-            this.list.innerHTML += `
-            <li class="list-group-item d-flex align-items-center justify-content-between">
-                <span style="display:none;">${data.id}</span>
-                <span>${data.todoName}</span>
-                <span>
-                    <button class="btn btn-outline-primary btn-sm">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm">Delete</button>
-                </span>
-            </li>
-            `;
+    newListItem(data,mode){
+        if(Array.isArray(data)){
+            data.forEach(data => {
+                this.list.innerHTML += `
+                <li class="list-group-item ${mode === "enabled" ? "list-group-item-dark" : ""} d-flex align-items-center justify-content-between">
+                    <span style="display:none;">${data.id}</span>
+                    <span>${data.todoName}</span>
+                    <span>
+                        <button class="btn btn-outline-primary btn-sm">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                    </span>
+                </li>
+                `;
+            });
         }else{
             this.list.innerHTML += `
-            <li class="list-group-item list-group-item-dark d-flex align-items-center justify-content-between">
+            <li class="list-group-item ${mode === "enabled" ? "list-group-item-dark" : ""} d-flex align-items-center justify-content-between">
                 <span style="display:none;">${data.id}</span>
                 <span>${data.todoName}</span>
                 <span>
@@ -32,6 +32,15 @@ class UI {
                 </span>
             </li>
             `;
+        }
+    }
+    // Add to Page One Todo
+    addTodoToUI(data){
+        darkMode = localStorage.getItem("darkMode");
+        if(darkMode !== "enabled"){
+            this.newListItem(data,darkMode);
+        }else{
+            this.newListItem(data,darkMode);
         }
     }
     clearInput(){
@@ -51,18 +60,12 @@ class UI {
     }
     // Get All Todo's and Upload to Page
     addTodosFromAPI(todos){
-        todos.forEach(todo => {
-            this.list.innerHTML += `
-            <li class="list-group-item d-flex align-items-center justify-content-between">
-                <span style="display:none;">${todo.id}</span>
-                <span>${todo.todoName}</span>
-                <span>
-                    <button class="btn btn-outline-primary btn-sm">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm">Delete</button>
-                </span>
-            </li>
-            `;
-        });
+        darkMode = localStorage.getItem("darkMode");
+        if(darkMode !== "enabled"){
+            this.newListItem(todos,darkMode);
+        }else{
+            this.newListItem(todos,darkMode);
+        }
     }
     // Delete One Todo Area
     deleteTodoToUI(parentElement){
@@ -70,20 +73,33 @@ class UI {
         this.messageCard("success","Todo has been deleted successfully!");
     }
     // Dark Mode Area
-    changeUIMode(mode){
-        if(mode == "fas fa-sun"){
-            document.body.style.backgroundColor = "#313438";
-            this.wholeCard.style.backgroundColor = "#464c54";
-            this.input.style.backgroundColor = "#bababa";
-            this.editInput.style.backgroundColor = "#bababa";
-            this.darkModeBtn.children[0].className = "far fa-moon";
-            Array.from(this.list.children).forEach(liElement => liElement.classList.add("list-group-item-dark"));
+    enableDarkMode(){
+        document.body.style.backgroundColor = "#313438";
+        this.wholeCard.style.backgroundColor = "#464c54";
+        this.input.style.backgroundColor = "#bababa";
+        this.editInput.style.backgroundColor = "#bababa";
+        this.darkModeBtn.children[0].className = "far fa-moon";
+        Array.from(this.list.children).forEach(liElement => liElement.classList.add("list-group-item-dark"));
+
+        localStorage.setItem("darkMode","enabled");
+    }
+    disableDarkMode(){
+        document.body.style.backgroundColor = "white";
+        this.wholeCard.style.backgroundColor = "white";
+        this.input.style.backgroundColor = "white";
+        this.editInput.style.backgroundColor = "white";
+        this.darkModeBtn.children[0].className = "fas fa-sun";
+        Array.from(this.list.children).forEach(liElement => liElement.classList.remove("list-group-item-dark"));
+
+        localStorage.setItem("darkMode",null);
+    }
+    changeUIMode(){
+        darkMode = localStorage.getItem("darkMode");
+        
+        if(darkMode == "enabled"){
+            this.disableDarkMode();
         }else{
-            document.body.style.backgroundColor = "white";
-            this.wholeCard.style.backgroundColor = "white";
-            this.input.style.backgroundColor = "white";
-            this.darkModeBtn.children[0].className = "fas fa-sun";
-            Array.from(this.list.children).forEach(liElement => liElement.classList.remove("list-group-item-dark"));
+            this.enableDarkMode();
         }
     }
     // Update Todo Area
@@ -100,6 +116,5 @@ class UI {
                 liElement.firstElementChild.nextElementSibling.innerHTML = data.todoName;
             }
         });
-        console.log(data);
     }
 }
