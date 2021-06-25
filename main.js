@@ -11,6 +11,10 @@ const editArea = document.querySelector("#editArea");
 const editTodoBtn = document.querySelector("#editTodoBtn");
 const editInput = document.querySelector("#editTodo");
 
+// Search Todo Area
+const searchTodoBtn = document.querySelector("#searchTodoBtn");
+const searchInput = document.querySelector("#searchTodo");
+
 eventListeners();
 
 const ui = new UI();
@@ -23,6 +27,8 @@ function eventListeners(){
     darkModeBtn.addEventListener("click",changeMode);
     closeEditTodo.addEventListener("click",closeEditArea);
     editTodoBtn.addEventListener("click",editTodo);
+    searchTodoBtn.addEventListener("click",searchTodo);
+    searchInput.addEventListener("keyup",keyUpSearchInput);
 }
 
 let darkMode;
@@ -121,4 +127,12 @@ function editTodo(){
     }
 
     ui.clearInput();
+}
+
+function searchTodo(){
+    ui.openTheSearchPanel();
+}
+
+function keyUpSearchInput(){
+    ui.filterTodos();
 }
