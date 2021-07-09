@@ -4,6 +4,7 @@ const input = document.querySelector("#addTodosInput");
 const cardBody = document.querySelectorAll(".card-body")[1];
 const darkModeBtn = document.querySelector("#darkMode");
 const list = document.querySelector(".list-group");
+const showBtn = document.querySelector("#showBtn");
 
 // Todo Edit Area
 const closeEditTodo = document.querySelector("#closeEditTodo");
@@ -29,6 +30,7 @@ function eventListeners(){
     editTodoBtn.addEventListener("click",editTodo);
     searchTodoBtn.addEventListener("click",searchTodo);
     searchInput.addEventListener("keyup",keyUpSearchInput);
+    showBtn.addEventListener("click",showAndHideButtons);
 }
 
 let darkMode;
@@ -90,12 +92,12 @@ function deleteOrEditTodo(e){
     // Get id For delete
     todoId = e.target.parentElement.parentElement.firstElementChild.innerHTML;
 
-    if(e.target.className == "btn btn-outline-danger btn-sm"){
+    if(e.target.classList.contains("delete")){
         let liElement = e.target.parentElement.parentElement;
 
         ui.deleteTodoToUI(liElement);
         restApi.deleteTodo(todoId);
-    }else if(e.target.className == "btn btn-outline-primary btn-sm"){
+    }else if(e.target.classList.contains("edit")){
         const todoText = e.target.parentElement.previousElementSibling;
 
         ui.openTheEditPanel(todoText);
@@ -135,4 +137,16 @@ function searchTodo(){
 
 function keyUpSearchInput(){
     ui.filterTodos();
+}
+
+function showAndHideButtons(e){
+    if(e.target.children[0].classList.contains("fa-chevron-right")){
+        darkModeBtn.classList.add("visible");
+        searchTodoBtn.classList.add("visible");
+        e.target.children[0].className = "fas fa-chevron-left";
+        return;
+    }
+    darkModeBtn.classList.remove("visible");
+    searchTodoBtn.classList.remove("visible");
+    e.target.children[0].className = "fas fa-chevron-right";
 }

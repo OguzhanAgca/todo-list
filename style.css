@@ -1,3 +1,6 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
 body, .card{
     transition: 0.5s;
 }
@@ -5,4 +8,36 @@ body, .card{
     font-weight: bolder;
     background-color: rgb(187, 187, 187);
     cursor: context-menu;
+}
+/* Dark Theme */
+.body-bg-dark {
+    background-color: #313438;
+}
+.input-bg-dark {
+    background-color: #bababa;
+}
+.card-bg-dark {
+    background-color: #464c54;
+}
+/* Buttons, Icons */
+.far, .fas {
+    pointer-events: none;
+}
+.visible {
+    display: none;
+}
+.edit:hover::after {
+    content: " Edit";
+}
+.delete:hover::after {
+    content: " Delete";
+}
+.add:hover::after {
+    content: " Add";
+}
+.search:hover::after {
+    content: " Search";
+}
+.dark:hover::after {
+    content: " Dark/Light";
 }

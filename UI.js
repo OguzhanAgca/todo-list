@@ -17,8 +17,8 @@ class UI {
                     <span style="display:none;">${data.id}</span>
                     <span>${data.todoName}</span>
                     <span>
-                        <button class="btn btn-outline-primary btn-sm">Edit</button>
-                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                        <button class="btn btn-outline-primary btn-sm edit"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="btn btn-outline-danger btn-sm delete"><i class="far fa-trash-alt"></i></button>
                     </span>
                 </li>
                 `;
@@ -29,8 +29,8 @@ class UI {
                 <span style="display:none;">${data.id}</span>
                 <span>${data.todoName}</span>
                 <span>
-                    <button class="btn btn-outline-primary btn-sm">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm">Delete</button>
+                    <button class="btn btn-outline-primary btn-sm edit"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-outline-danger btn-sm delete"><i class="far fa-trash-alt"></i></button>
                 </span>
             </li>
             `;
@@ -76,22 +76,22 @@ class UI {
     }
     // Dark Mode Area
     enableDarkMode(){
-        document.body.style.backgroundColor = "#313438";
-        this.wholeCard.style.backgroundColor = "#464c54";
-        this.input.style.backgroundColor = "#bababa";
-        this.editInput.style.backgroundColor = "#bababa";
-        this.searchInput.style.backgroundColor = "#bababa";
+        document.body.classList.add("body-bg-dark");
+        this.wholeCard.classList.add("card-bg-dark");
+        this.input.classList.add("input-bg-dark");
+        this.editInput.classList.add("input-bg-dark");
+        this.searchInput.classList.add("input-bg-dark");
         this.darkModeBtn.children[0].className = "far fa-moon";
         Array.from(this.list.children).forEach(liElement => liElement.classList.add("list-group-item-dark"));
 
         localStorage.setItem("darkMode","enabled");
     }
     disableDarkMode(){
-        document.body.style.backgroundColor = "white";
-        this.wholeCard.style.backgroundColor = "white";
-        this.input.style.backgroundColor = "white";
-        this.editInput.style.backgroundColor = "white";
-        this.searchInput.style.backgroundColor = "white";
+        document.body.classList.remove("body-bg-dark");
+        this.wholeCard.classList.remove("card-bg-dark");
+        this.input.classList.remove("input-bg-dark");
+        this.editInput.classList.remove("input-bg-dark");
+        this.searchInput.classList.remove("input-bg-dark");
         this.darkModeBtn.children[0].className = "fas fa-sun";
         Array.from(this.list.children).forEach(liElement => liElement.classList.remove("list-group-item-dark"));
 

@@ -32,6 +32,10 @@ https://user-images.githubusercontent.com/82233025/122419742-d116b300-cf93-11eb-
 
 https://user-images.githubusercontent.com/82233025/122419773-d7a52a80-cf93-11eb-8731-fe8f9e103ce5.mp4
 
+#### New Icons
+
+https://user-images.githubusercontent.com/82233025/125141677-5ff39700-e11e-11eb-930b-971f76c39621.mp4
+
 
 #### Usage
 
